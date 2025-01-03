@@ -289,6 +289,9 @@
     <!-- The name of the package that will hold the game service role. -->
     <string name="config_systemGameService">com.google.android.gms</string>
 
+    <!-- Circle to search -->
+    <string name="config_defaultContextualSearchPackageName" translatable="false">com.google.android.googlequicksearchbox</string>
+
     <!-- The name of the package that will hold the speech recognizer role by default. -->
     <string name="config_systemSpeechRecognizer" translatable="false">com.google.android.tts</string>
 
