@@ -377,6 +377,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/scandium/pocket/privapp-permissions-pocketmode.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-pocketmode.xml
 
+# Disable default frame rate limit for games
+PRODUCT_PRODUCT_PROPERTIES += \
+    debug.graphics.game_default_frame_rate.disabled=true
+
+-include vendor/lineage-priv/keys/keys.mk
 include vendor/scandium/config/ota.mk
 include vendor/scandium/config/pixel_props.mk
 include vendor/scandium/config/packages.mk
