@@ -1,5 +1,5 @@
-# Inherit common mobile blaze stuff
-$(call inherit-product, vendor/blaze/config/common.mk)
+# Inherit common mobile scandium stuff
+$(call inherit-product, vendor/scandium/config/common.mk)
 
 # Themes
 PRODUCT_PACKAGES += \

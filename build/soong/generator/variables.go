@@ -6,12 +6,12 @@ import (
 	"android/soong/android"
 )
 
-func blazeExpandVariables(ctx android.ModuleContext, in string) string {
-	blazeVars := ctx.Config().VendorConfig("blazeVarsPlugin")
+func scandiumExpandVariables(ctx android.ModuleContext, in string) string {
+	scandiumVars := ctx.Config().VendorConfig("scandiumVarsPlugin")
 
 	out, err := android.Expand(in, func(name string) (string, error) {
-		if blazeVars.IsSet(name) {
-			return blazeVars.String(name), nil
+		if scandiumVars.IsSet(name) {
+			return scandiumVars.String(name), nil
 		}
 		// This variable is not for us, restore what the original
 		// variable string will have looked like for an Expand

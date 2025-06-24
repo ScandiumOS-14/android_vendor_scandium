@@ -1,7 +1,7 @@
 # Allow vendor/extra to override any property by setting it first
 $(call inherit-product-if-exists, vendor/extra/product.mk)
 
-PRODUCT_BRAND ?= ProjectBlaze
+PRODUCT_BRAND ?= ScandiumOS
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
@@ -32,22 +32,22 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += persist.sys.strictmode.disable=true
 endif
 
 # Audio
-$(call inherit-product, vendor/blaze/audio/audio.mk)
+$(call inherit-product, vendor/scandium/audio/audio.mk)
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
-    vendor/blaze/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/blaze/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/blaze/prebuilt/common/bin/50-blaze.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-blaze.sh
+    vendor/scandium/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/scandium/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
+    vendor/scandium/prebuilt/common/bin/50-scandium.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-scandium.sh
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
-    system/addon.d/50-blaze.sh
+    system/addon.d/50-scandium.sh
 
 ifneq ($(strip $(AB_OTA_PARTITIONS) $(AB_OTA_POSTINSTALL_CONFIG)),)
 PRODUCT_COPY_FILES += \
-    vendor/blaze/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
-    vendor/blaze/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
-    vendor/blaze/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
+    vendor/scandium/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
+    vendor/scandium/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
+    vendor/scandium/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/backuptool_ab.sh \
@@ -70,19 +70,19 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 endif
 
 # BootAnimation
-include vendor/blaze/config/bootanimation.mk
+include vendor/scandium/config/bootanimation.mk
 
-# blaze-specific init rc file
+# scandium-specific init rc file
 PRODUCT_COPY_FILES += \
-    vendor/blaze/prebuilt/common/etc/init/init.blaze-system_ext.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.blaze-system_ext.rc
+    vendor/scandium/prebuilt/common/etc/init/init.scandium-system_ext.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.scandium-system_ext.rc
 
 # App lock permission
 PRODUCT_COPY_FILES += \
-    vendor/blaze/config/permissions/privapp-permissions-settings.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-settings.xml
+    vendor/scandium/config/permissions/privapp-permissions-settings.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-settings.xml
 
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
-    vendor/blaze/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.nfc.beam.xml
+    vendor/scandium/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.nfc.beam.xml
 
 # Display
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
@@ -127,12 +127,12 @@ endif
 
 # Google Photos Pixel Exclusive XML
 PRODUCT_COPY_FILES += \
-    vendor/blaze/prebuilt/common/etc/sysconfig/pixel_2016_exclusive.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/pixel_2016_exclusive.xml
+    vendor/scandium/prebuilt/common/etc/sysconfig/pixel_2016_exclusive.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/pixel_2016_exclusive.xml
 
 # Lineage Hardware
 PRODUCT_COPY_FILES += \
-    vendor/blaze/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-lineagehw.xml \
-    vendor/blaze/config/permissions/org.lineageos.health.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.health.xml
+    vendor/scandium/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-lineagehw.xml \
+    vendor/scandium/config/permissions/org.lineageos.health.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.health.xml
 
 # Overlay
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -158,7 +158,7 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 
 ifneq ($(TARGET_DISABLE_EPPE),true)
 # Require all requested packages to exist
-$(call enforce-product-packages-exist-internal,$(wildcard device/*/$(BLAZE_BUILD)/$(TARGET_PRODUCT).mk),product_manifest.xml rild Calendar Launcher3 Launcher3Go Launcher3QuickStep Launcher3QuickStepGo android.hidl.memory@1.0-impl.vendor vndk_apex_snapshot_package)
+$(call enforce-product-packages-exist-internal,$(wildcard device/*/$(SCANDIUM_BUILD)/$(TARGET_PRODUCT).mk),product_manifest.xml rild Calendar Launcher3 Launcher3Go Launcher3QuickStep Launcher3QuickStepGo android.hidl.memory@1.0-impl.vendor vndk_apex_snapshot_package)
 endif
 
 # BtHelper
@@ -173,7 +173,7 @@ PRODUCT_PACKAGES += \
 TARGET_CALL_RECORDING_SUPPORTED ?= true
 ifneq ($(TARGET_CALL_RECORDING_SUPPORTED),false)
 PRODUCT_COPY_FILES += \
-    vendor/blaze/config/permissions/com.google.android.apps.dialer.call_recording_audio.features.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/com.google.android.apps.dialer.call_recording_audio.features.xml
+    vendor/scandium/config/permissions/com.google.android.apps.dialer.call_recording_audio.features.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/com.google.android.apps.dialer.call_recording_audio.features.xml
 endif
 
 # Certification
@@ -183,7 +183,7 @@ $(call inherit-product-if-exists, vendor/certification/config.mk)
 PRODUCT_PACKAGES += \
     SimpleDeviceConfig
 
-# Extra tools in blaze
+# Extra tools in scandium
 PRODUCT_PACKAGES += \
     bash \
     curl \
@@ -223,7 +223,7 @@ PRODUCT_PACKAGES += \
     start-ssh
 
 PRODUCT_COPY_FILES += \
-    vendor/blaze/prebuilt/common/etc/init/init.openssh.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.openssh.rc
+    vendor/scandium/prebuilt/common/etc/init/init.openssh.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.openssh.rc
 
 # ThemeOverlays
 include packages/overlays/Themes/themes.mk
@@ -255,7 +255,7 @@ PRODUCT_SYSTEM_PROPERTIES += \
 
 # Clean up packages cache to avoid wrong strings and resources
 PRODUCT_COPY_FILES += \
-    vendor/blaze/prebuilt/common/bin/clean_cache.sh:system/bin/clean_cache.sh
+    vendor/scandium/prebuilt/common/bin/clean_cache.sh:system/bin/clean_cache.sh
 
 # Pixel customization
 TARGET_SUPPORTS_GOOGLE_BATTERY ?= false
@@ -277,7 +277,7 @@ PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
 PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
 
 PRODUCT_PACKAGE_OVERLAYS += \
-    vendor/blaze/overlay/common \
+    vendor/scandium/overlay/common \
 
 PRODUCT_PACKAGES += \
     CustomFontPixelLauncherOverlay \
@@ -285,9 +285,9 @@ PRODUCT_PACKAGES += \
     NetworkStackOverlay
 
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-    vendor/blaze/build/target/product/security/blaze
+    vendor/scandium/build/target/product/security/scandium
 
-include vendor/blaze/config/version.mk
+include vendor/scandium/config/version.mk
 
 # Sounds (default)
 PRODUCT_PROPERTY_OVERRIDES := \
@@ -297,15 +297,15 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # Required packages
 PRODUCT_PACKAGES += \
     Aperture \
-    BlazeWallpaperStub
+    ScandiumWallpaperStub
 
 # PocketMode
 PRODUCT_PACKAGES += \
     PocketMode
 
 PRODUCT_COPY_FILES += \
-    vendor/blaze/pocket/privapp-permissions-pocketmode.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-pocketmode.xml
+    vendor/scandium/pocket/privapp-permissions-pocketmode.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-pocketmode.xml
 
-include vendor/blaze/config/ota.mk
-include vendor/blaze/config/pixel_props.mk
-include vendor/blaze/config/packages.mk
+include vendor/scandium/config/ota.mk
+include vendor/scandium/config/pixel_props.mk
+include vendor/scandium/config/packages.mk

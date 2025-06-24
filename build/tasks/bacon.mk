@@ -14,24 +14,32 @@
 # limitations under the License.
 
 # -----------------------------------------------------------------
-# ProjectBlaze OTA update package
+# ScandiumOS OTA update package
 
-BLAZE_TARGET_PACKAGE := $(PRODUCT_OUT)/ProjectBlaze-$(BLAZE_VERSION).zip
+SCANDIUM_TARGET_PACKAGE := $(PRODUCT_OUT)/ScandiumOS-$(SCANDIUM_VERSION).zip
 
 SHA256 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/sha256sum
 
-CL_CYN="\033[36m"
-CL_PRP="\033[35m"
-
 .PHONY: bacon
 bacon: $(DEFAULT_GOAL) $(INTERNAL_OTA_PACKAGE_TARGET)
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(BLAZE_TARGET_PACKAGE)
-	$(hide) $(SHA256) $(BLAZE_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(BLAZE_TARGET_PACKAGE).sha256sum
-	$(hide) ./vendor/blaze/tools/generate_json_build_info.sh $(BLAZE_TARGET_PACKAGE)
-	echo -e ${CL_BLD}${CL_CYN}"===============================-Package complete-==============================="${CL_CYN}
-	echo -e ${CL_BLD}${CL_CYN}"Datetime :"${CL_PRP}" `cat $(PRODUCT_OUT)/system/build.prop | grep ro.build.date.utc | cut -d'=' -f2 | awk '{print $$1}' `"${CL_RST}
-	echo -e ${CL_BLD}${CL_CYN}"Size:"${CL_PRP}" `du -sh $(BLAZE_TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
-	echo -e ${CL_BLD}${CL_CYN}"Filehash: "${CL_PRP}" `md5sum $(BLAZE_TARGET_PACKAGE) | awk '{print $$1}' `"${CL_RST}
-	echo -e ${CL_BLD}${CL_CYN}"Filename: "${CL_PRP} $(BLAZE_TARGET_PACKAGE)${CL_RST}
-	echo -e ${CL_BLD}${CL_CYN}"ID: "${CL_PRP}" `cat $(BLAZE_TARGET_PACKAGE).sha256sum | awk '{print $$1}' `"${CL_RST}
-	echo -e ${CL_BLD}${CL_CYN}"================================================================================"${CL_CYN}
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(SCANDIUM_TARGET_PACKAGE)
+	$(hide) $(SHA256) $(SCANDIUM_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(SCANDIUM_TARGET_PACKAGE).sha256sum
+	$(hide) ./vendor/scandium/tools/generate_json_build_info.sh $(SCANDIUM_TARGET_PACKAGE)
+	@echo -e "\033[1;37m                                                                                      \033[m"
+	@echo -e "\033[1;37m                                                                                      \033[m"
+	@echo -e "\033[1;37m											  \033[m"
+	@echo -e "\033[1;37m ███████╗ ██████╗ █████╗ ███╗   ██╗██████╗ ██╗██╗   ██╗███╗   ███╗   ██████╗ ███████╗ \033[m"
+	@echo -e "\033[1;37m ██╔════╝██╔════╝██╔══██╗████╗  ██║██╔══██╗██║██║   ██║████╗ ████║  ██╔═══██╗██╔════╝ \033[m"
+	@echo -e "\033[1;37m ███████╗██║     ███████║██╔██╗ ██║██║  ██║██║██║   ██║██╔████╔██║  ██║   ██║███████╗ \033[m"
+	@echo -e "\033[1;37m ╚════██║██║     ██╔══██║██║╚██╗██║██║  ██║██║██║   ██║██║╚██╔╝██║  ██║   ██║╚════██║ \033[m"
+	@echo -e "\033[1;37m ███████║╚██████╗██║  ██║██║ ╚████║██████╔╝██║╚██████╔╝██║ ╚═╝ ██║  ╚██████╔╝███████║ \033[m"
+	@echo -e "\033[1;37m ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝ ╚═════╝ ╚═╝     ╚═╝   ╚═════╝ ╚══════╝ \033[m"
+	@echo -e "\033[1;37m                                                                                      \033[m"
+	@echo -e "\033[1;37m											  \033[m"
+	@echo -e "\033[1;37m                                  Build completed !                                   \033[m"
+	@echo -e "\033[1;37m		 									  \033[m"
+	@echo -e "\033[0;34m=======================================================================================\033[m"
+	@echo -e "\033[0m Package Complete : $(SCANDIUM_TARGET_PACKAGE)						\033[m"
+	@echo -e "\033[0m Size             : `du -sh $(SCANDIUM_TARGET_PACKAGE) | awk '{print $$1}'`		\033[m"
+	@echo -e "\033[0m md5sum           : `$(SCANDIUM_TARGET_PACKAGE) | awk '{print $$1}'`		\033[m"
+	@echo -e "\033[0;34m=======================================================================================\033[m"

@@ -1,5 +1,5 @@
-# Inherit common blaze stuff
-$(call inherit-product, vendor/blaze/config/common_mobile.mk)
+# Inherit common scandium stuff
+$(call inherit-product, vendor/scandium/config/common_mobile.mk)
 
 PRODUCT_SIZE := full
 

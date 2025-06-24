@@ -1,4 +1,4 @@
-# Copyright (C) 2022-2024 ProjectBlaze
+# Copyright (C) 2022-2024 ScandiumOS
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,59 +13,59 @@
 # limitations under the License.
 
 ANDROID_VERSION := 14
-BLAZEVERSION := 3.8-EOL
+SCANDIUMVERSION := 2.0-Karawang
 
-BLAZE_BUILD_TYPE ?= UNOFFICIAL
-BLAZE_MAINTAINER ?= UNKNOWN
-BLAZE_DATE_YEAR := $(shell date -u +%Y)
-BLAZE_DATE_MONTH := $(shell date -u +%m)
-BLAZE_DATE_DAY := $(shell date -u +%d)
-BLAZE_DATE_HOUR := $(shell date -u +%H)
-BLAZE_DATE_MINUTE := $(shell date -u +%M)
-BLAZE_BUILD_DATE := $(BLAZE_DATE_YEAR)$(BLAZE_DATE_MONTH)$(BLAZE_DATE_DAY)-$(BLAZE_DATE_HOUR)$(BLAZE_DATE_MINUTE)
-TARGET_PRODUCT_SHORT := $(subst blaze_,,$(BLAZE_BUILD))
+SCANDIUM_BUILD_TYPE ?= UNOFFICIAL
+SCANDIUM_MAINTAINER ?= UNKNOWN
+SCANDIUM_DATE_YEAR := $(shell date -u +%Y)
+SCANDIUM_DATE_MONTH := $(shell date -u +%m)
+SCANDIUM_DATE_DAY := $(shell date -u +%d)
+SCANDIUM_DATE_HOUR := $(shell date -u +%H)
+SCANDIUM_DATE_MINUTE := $(shell date -u +%M)
+SCANDIUM_BUILD_DATE := $(SCANDIUM_DATE_YEAR)$(SCANDIUM_DATE_MONTH)$(SCANDIUM_DATE_DAY)-$(SCANDIUM_DATE_HOUR)$(SCANDIUM_DATE_MINUTE)
+TARGET_PRODUCT_SHORT := $(subst scandium_,,$(SCANDIUM_BUILD))
 
 # OFFICIAL_DEVICES
-ifeq ($(BLAZE_BUILD_TYPE), OFFICIAL)
-  LIST = $(shell cat vendor/blaze/config/blaze.devices)
-    ifeq ($(filter $(BLAZE_BUILD), $(LIST)), $(BLAZE_BUILD))
+ifeq ($(SCANDIUM_BUILD_TYPE), OFFICIAL)
+  LIST = $(shell cat vendor/scandium/config/scandium.devices)
+    ifeq ($(filter $(SCANDIUM_BUILD), $(LIST)), $(SCANDIUM_BUILD))
       IS_OFFICIAL=true
-      BLAZE_BUILD_TYPE := OFFICIAL
+      SCANDIUM_BUILD_TYPE := OFFICIAL
     endif
     ifneq ($(IS_OFFICIAL), true)
-      BLAZE_BUILD_TYPE := UNOFFICIAL
-      $(error Device is not official "$(BLAZE_BUILD)")
+      SCANDIUM_BUILD_TYPE := UNOFFICIAL
+      $(error Device is not official "$(SCANDIUM_BUILD)")
     endif
 endif
 
-BLAZE_VERSION := $(BLAZEVERSION)-$(BLAZE_BUILD)-$(BLAZE_BUILD_DATE)-VANILLA-$(BLAZE_BUILD_TYPE)
+SCANDIUM_VERSION := $(SCANDIUMVERSION)-$(SCANDIUM_BUILD)-$(SCANDIUM_BUILD_DATE)-VANILLA-$(SCANDIUM_BUILD_TYPE)
 ifeq ($(WITH_GAPPS), true)
-BLAZE_VERSION := $(BLAZEVERSION)-$(BLAZE_BUILD)-$(BLAZE_BUILD_DATE)-GAPPS-$(BLAZE_BUILD_TYPE)
+SCANDIUM_VERSION := $(SCANDIUMVERSION)-$(SCANDIUM_BUILD)-$(SCANDIUM_BUILD_DATE)-GAPPS-$(SCANDIUM_BUILD_TYPE)
 endif
-BLAZE_MOD_VERSION :=$(ANDROID_VERSION)-$(BLAZEVERSION)
-BLAZE_DISPLAY_VERSION := ProjectBlaze-$(BLAZEVERSION)-$(BLAZE_BUILD_TYPE)
-BLAZE_DISPLAY_BUILDTYPE := $(BLAZE_BUILD_TYPE)
-BLAZE_FINGERPRINT := ProjectBlaze/$(BLAZE_MOD_VERSION)/$(TARGET_PRODUCT_SHORT)/$(BLAZE_BUILD_DATE)
+SCANDIUM_MOD_VERSION :=$(ANDROID_VERSION)-$(SCANDIUMVERSION)
+SCANDIUM_DISPLAY_VERSION := ScandiumOS-$(SCANDIUMVERSION)-$(SCANDIUM_BUILD_TYPE)
+SCANDIUM_DISPLAY_BUILDTYPE := $(SCANDIUM_BUILD_TYPE)
+SCANDIUM_FINGERPRINT := ScandiumOS/$(SCANDIUM_MOD_VERSION)/$(TARGET_PRODUCT_SHORT)/$(SCANDIUM_BUILD_DATE)
 
-# BLAZE System Version
+# SCANDIUM System Version
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-  ro.blaze.version=$(BLAZE_DISPLAY_VERSION) \
-  ro.blaze.build.status=$(BLAZE_BUILD_TYPE) \
-  ro.modversion=$(BLAZE_MOD_VERSION) \
-  ro.blaze.build.date=$(BLAZE_BUILD_DATE) \
-  ro.blaze.buildtype=$(BLAZE_BUILD_TYPE) \
-  ro.blaze.fingerprint=$(BLAZE_FINGERPRINT) \
-  ro.blaze.device=$(BLAZE_BUILD) \
-  org.blaze.version=$(BLAZEVERSION) \
-  ro.blaze.maintainer=$(BLAZE_MAINTAINER)
+  ro.scandium.version=$(SCANDIUM_DISPLAY_VERSION) \
+  ro.scandium.build.status=$(SCANDIUM_BUILD_TYPE) \
+  ro.modversion=$(SCANDIUM_MOD_VERSION) \
+  ro.scandium.build.date=$(SCANDIUM_BUILD_DATE) \
+  ro.scandium.buildtype=$(SCANDIUM_BUILD_TYPE) \
+  ro.scandium.fingerprint=$(SCANDIUM_FINGERPRINT) \
+  ro.scandium.device=$(SCANDIUM_BUILD) \
+  org.scandium.version=$(SCANDIUMVERSION) \
+  ro.scandium.maintainer=$(SCANDIUM_MAINTAINER)
 
 # Sign Build
 ifneq (eng,$(TARGET_BUILD_VARIANT))
-ifneq (,$(wildcard vendor/blaze/signing/keys/releasekey.pk8))
-PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/blaze/signing/keys/releasekey
+ifneq (,$(wildcard vendor/scandium/signing/keys/releasekey.pk8))
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/scandium/signing/keys/releasekey
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.oem_unlock_supported=1
 endif
-ifneq (,$(wildcard vendor/blaze/signing/keys/otakey.x509.pem))
-PRODUCT_OTA_PUBLIC_KEYS := vendor/blaze/signing/keys/otakey.x509.pem
+ifneq (,$(wildcard vendor/scandium/signing/keys/otakey.x509.pem))
+PRODUCT_OTA_PUBLIC_KEYS := vendor/scandium/signing/keys/otakey.x509.pem
 endif
 endif

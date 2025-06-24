@@ -17,7 +17,7 @@ $(call inherit-product, frameworks/base/data/sounds/AudioPackage14.mk)
 
 # 2019 Material product sounds (CC-BY 4.0)
 # Source:  https://material.io/design/sound/sound-resources.html
-LOCAL_PATH := vendor/blaze/audio
+LOCAL_PATH := vendor/scandium/audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/alarms/MorningAlarm.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/MorningAlarm.ogg \
     $(LOCAL_PATH)/notifications/Pikachu.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Pikachu.ogg \
