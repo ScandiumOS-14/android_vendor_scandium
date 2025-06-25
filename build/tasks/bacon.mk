@@ -19,11 +19,13 @@
 SCANDIUM_TARGET_PACKAGE := $(PRODUCT_OUT)/ScandiumOS-$(SCANDIUM_VERSION).zip
 
 MD5 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/md5sum
+SHA256 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/sha256sum
 
 .PHONY: bacon
 bacon: $(DEFAULT_GOAL) $(INTERNAL_OTA_PACKAGE_TARGET)
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(SCANDIUM_TARGET_PACKAGE)
 	$(hide) $(MD5) $(SCANDIUM_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(SCANDIUM_TARGET_PACKAGE).md5sum
+	$(hide) $(SHA256) $(SCANDIUM_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(SCANDIUM_TARGET_PACKAGE).sha256sum
 	$(hide) ./vendor/scandium/tools/generate_json_build_info.sh $(SCANDIUM_TARGET_PACKAGE)
 	@echo -e "\033[0;34m=======================================================================================\033[m"
 	@echo -e "\033[1;37m                                                                                      \033[m"
