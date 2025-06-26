@@ -39,7 +39,7 @@ if [ "$1" ]; then
             echo "    }" >> $file_path.json
             echo "  ]" >> $file_path.json
             echo "}" >> $file_path.json
-            mv "${file_path}.json" "./${DEVICE}.json"
+            mv "${file_path}.json" "./vendor/ScandiumOTA/build/${DEVICE}.json"
             echo -e "${CL_CYN}Done generating ${CL_PRP}${DEVICE}.json${CL_NC}"
         else
             echo -e "${CL_RED}Skipped generating json for a non-official build${CL_NC}"
