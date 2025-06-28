@@ -279,6 +279,13 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     Settings \
     SystemUI
 
+# Enable whole-program R8 Java optimizations for SystemUI and system_server,More actions
+# but also allow explicit overriding for testing and development.
+SYSTEM_OPTIMIZE_JAVA ?= true
+SYSTEMUI_OPTIMIZE_JAVA ?= true
+# For full optimization rather than just shrinking
+FULL_SYSTEM_OPTIMIZE_JAVA ?= true
+
 # Speed profile services and wifi-service to reduce RAM and storage
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
