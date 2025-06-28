@@ -3,3 +3,10 @@ java_import {
     jars: ["lib/vendorAacHardwareRichtapVibrator.jar"],
     sdk_version: "current",
 }
+
+prebuilt_etc_xml {
+    name: "custom-component-overrides.xml",
+    product_specific: true,
+    src: "etc/custom-component-overrides.xml",
+    sub_dir: "sysconfig",
+}
