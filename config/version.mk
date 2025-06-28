@@ -25,8 +25,8 @@ SCANDIUM_DATE_MINUTE := $(shell date -u +%M)
 SCANDIUM_BUILD_DATE := $(SCANDIUM_DATE_YEAR)$(SCANDIUM_DATE_MONTH)$(SCANDIUM_DATE_DAY)-$(SCANDIUM_DATE_HOUR)$(SCANDIUM_DATE_MINUTE)
 TARGET_PRODUCT_SHORT := $(subst scandium_,,$(SCANDIUM_BUILD))
 
-OFFICIAL_DEVICES_LIST = $(shell cat vendor/scandium-maintainer/config/scandium.devices)
-OFFICIAL_MAINTAINER_LIST = $(shell cat vendor/scandium-maintainer/config/scandium.maintainer)
+OFFICIAL_DEVICES_LIST = $(shell cat vendor/scandium-maintainer/scandium.devices)
+OFFICIAL_MAINTAINER_LIST = $(shell cat vendor/scandium-maintainer/scandium.maintainer)
 
 ifeq ($(filter $(SCANDIUM_BUILD), $(OFFICIAL_DEVICES_LIST)), $(SCANDIUM_BUILD))
    ifeq ($(filter $(SCANDIUM_MAINTAINER), $(OFFICIAL_MAINTAINER_LIST)), $(SCANDIUM_MAINTAINER))
