@@ -40,6 +40,7 @@ endif
 ifeq ($(SCANDIUM_BUILD_TYPE), OFFICIAL)
   LIST = $(shell cat vendor/scandium/config/scandium.devices)
     ifeq ($(filter $(SCANDIUM_BUILD), $(LIST)), $(SCANDIUM_BUILD))
+      IS_OFFICIAL=true
       SCANDIUM_BUILD_TYPE := OFFICIAL
     endif
     ifneq ($(IS_OFFICIAL), true)
