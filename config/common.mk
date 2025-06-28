@@ -321,6 +321,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/scandium/pocket/privapp-permissions-pocketmode.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-pocketmode.xml
 
+# OTAAdd commentMore actions
+$(call inherit-product, vendor/aosp/config/ota.mk)
+
+PRODUCT_COPY_FILES += \
+    vendor/scandium/config/permissions/privapp-permissions-custom.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-custom.xml
+
 include vendor/scandium/config/ota.mk
 include vendor/scandium/config/pixel_props.mk
 include vendor/scandium/config/packages.mk
