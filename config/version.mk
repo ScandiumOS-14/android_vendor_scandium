@@ -25,28 +25,36 @@ SCANDIUM_DATE_MINUTE := $(shell date -u +%M)
 SCANDIUM_BUILD_DATE := $(SCANDIUM_DATE_YEAR)$(SCANDIUM_DATE_MONTH)$(SCANDIUM_DATE_DAY)-$(SCANDIUM_DATE_HOUR)$(SCANDIUM_DATE_MINUTE)
 TARGET_PRODUCT_SHORT := $(subst scandium_,,$(SCANDIUM_BUILD))
 
-# OFFICIAL_DEVICES_AUTO
-ifeq ($(SCANDIUM_BUILD_TYPE),)
-    OFFICIAL_DEVICES_LIST := $(shell cat vendor/scandium/config/scandium.devices)
-    ifeq ($(filter $(SCANDIUM_BUILD), $(OFFICIAL_DEVICES_LIST)), $(SCANDIUM_BUILD))
-        SCANDIUM_BUILD_TYPE := OFFICIAL
-    else
-        SCANDIUM_BUILD_TYPE := UNOFFICIAL
-        $(error Device is not official "$(SCANDIUM_BUILD)")
-    endif
-endif
+OFFICIAL_DEVICES_LIST = $(shell cat vendor/scandium-maintainer/config/scandium.devices)
+OFFICIAL_MAINTAINER_LIST = $(shell cat vendor/scandium-maintainer/config/scandium.maintainer)
 
-# OFFICIAL_DEVICES
-ifeq ($(SCANDIUM_BUILD_TYPE), OFFICIAL)
-  LIST = $(shell cat vendor/scandium/config/scandium.devices)
-    ifeq ($(filter $(SCANDIUM_BUILD), $(LIST)), $(SCANDIUM_BUILD))
-      IS_OFFICIAL=true
-      SCANDIUM_BUILD_TYPE := OFFICIAL
-    endif
-    ifneq ($(IS_OFFICIAL), true)
-      SCANDIUM_BUILD_TYPE := UNOFFICIAL
-      $(error Device is not official "$(SCANDIUM_BUILD)")
-    endif
+ifeq ($(filter $(SCANDIUM_BUILD), $(OFFICIAL_DEVICES_LIST)), $(SCANDIUM_BUILD))
+   ifeq ($(filter $(SCANDIUM_MAINTAINER), $(OFFICIAL_MAINTAINER_LIST)), $(SCANDIUM_MAINTAINER))
+      SCANDIUM_BUILD_TYPE := OFFICIAL
+  else
+     # the builder is overriding official flag on purpose
+     ifeq ($(SCANDIUM_BUILD_TYPE), OFFICIAL)
+       $(error **********************************************************)
+       $(error *     A violation has been detected, aborting build      *)
+       $(error **********************************************************)
+       SCANDIUM_BUILD_TYPE := UNOFFICIAL
+     else
+       $(warning **********************************************************************)
+       $(warning *   There is already an official maintainer for $(SCANDIUM_BUILD)    *)
+       $(warning *              Setting build type to UNOFFICIAL                      *)
+       $(warning *    Please contact current official maintainer before distributing  *)
+       $(warning *              the current build to the community.                   *)
+       $(warning **********************************************************************)
+       SCANDIUM_BUILD_TYPE := UNOFFICIAL
+     endif
+  endif
+else
+   ifeq ($(SCANDIUM_BUILD_TYPE), OFFICIAL)
+     $(error **********************************************************)
+     $(error *     A violation has been detected, aborting build      *)
+     $(error **********************************************************)
+   endif
+  SCANDIUM_BUILD_TYPE := UNOFFICIAL
 endif
 
 SCANDIUM_VERSION := $(SCANDIUMVERSION)-$(SCANDIUM_BUILD)-$(SCANDIUM_BUILD_DATE)-VANILLA-$(SCANDIUM_BUILD_TYPE)
@@ -70,8 +78,12 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
   ro.scandium.buildtype=$(SCANDIUM_BUILD_TYPE) \
   ro.scandium.fingerprint=$(SCANDIUM_FINGERPRINT) \
   ro.scandium.device=$(SCANDIUM_BUILD) \
-  org.scandium.version=$(SCANDIUMVERSION) \
-  ro.scandium.maintainer=$(SCANDIUM_MAINTAINER)
+  org.scandium.version=$(SCANDIUMVERSION)
+
+ifdef SCANDIUM_MAINTAINER
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+   ro.scandium.maintainer=$(SCANDIUM_MAINTAINER)
+endif
 
 # Sign Build
 ifneq (eng,$(TARGET_BUILD_VARIANT))
