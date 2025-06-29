@@ -10,3 +10,11 @@ prebuilt_etc_xml {
     src: "etc/custom-component-overrides.xml",
     sub_dir: "sysconfig",
 }
+
+prebuilt_etc_xml {More actions
+    name: "apns-conf.xml",
+    product_specific: true,
+    src: "etc/apns-conf.xml",
+    schema: ":apns-conf-schema",
+}
+

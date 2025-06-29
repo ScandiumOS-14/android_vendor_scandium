@@ -1,0 +1,5 @@
+filegroup {
+    name: "apns-conf-schema",
+    srcs: ["apns-conf.xsd"],
+}
+
