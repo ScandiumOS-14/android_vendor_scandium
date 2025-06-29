@@ -934,7 +934,7 @@ alias cmkap='dopush cmka'
 
 function repopick() {
     T=$(gettop)
-    $T/vendor/scandium/build/tools/repopick.py $@
+    python3 $T/vendor/scandium/build/tools/repopick.py $@
 }
 
 function sort-blobs-list() {
