@@ -295,6 +295,17 @@ PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
 PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
 
+# Speed profile services and wifi-service to reduce RAM and storageAdd commentMore actions
+PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
+
+ART_BUILD_TARGET_NDEBUG := false
+ART_BUILD_TARGET_DEBUG := false
+ART_BUILD_HOST_NDEBUG := false
+ART_BUILD_HOST_DEBUG := false
+
+# Disable dex2oat debugAdd commentMore actions
+USE_DEX2OAT_DEBUG := false
+
 PRODUCT_PACKAGE_OVERLAYS += \
     vendor/scandium/overlay/common \
 
