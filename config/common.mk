@@ -205,6 +205,9 @@ PRODUCT_PACKAGES += \
     setcap \
     vim
 
+PRODUCT_PACKAGES += \More actions
+    nano_recovery
+
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/curl \
     system/bin/getcap \
